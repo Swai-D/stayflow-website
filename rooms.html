@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rooms & Suites – Buffalo Hotel | Moshi, Kilimanjaro</title>
+  <meta name="description" content="Explore Buffalo Hotel's range of comfortable rooms and suites in Moshi, Tanzania. Budget-friendly with views of Kilimanjaro."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-top-bar">
+    <div class="container">
+      <div class="top-bar-links">
+        <span>📍 Moshi Town, Kilimanjaro, Tanzania</span>
+        <span>Open 24 Hours / 7 Days</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+255000000000">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 5.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.13 1 .37 1.96.73 2.88a2 2 0 01-.45 2.1L9 10.91a16 16 0 006.09 6.09l1.21-1.28a2 2 0 012.1-.45 12.84 12.84 0 002.88.73A2 2 0 0122 16.92z"/></svg>
+          +255 XXX XXX XXX
+        </a>
+        <a href="mailto:info@buffalohotel.co.tz">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@buffalohotel.co.tz
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/hotel-reservation-logo.svg" alt="Buffalo Hotel Logo"/>
+        <div class="logo-text">
+          <span class="hotel-name">Buffalo Hotel</span>
+          <span class="hotel-sub">Moshi · Kilimanjaro</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="rooms.html" class="active">Rooms</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-cta">
+        <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+      </div>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <div class="mobile-nav-close" id="mobileClose">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="rooms.html">Rooms</a>
+  <a href="services.html">Services</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <h1>Rooms &amp; Suites</h1>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Rooms &amp; Suites</span>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section style="padding: 80px 0 40px;">
+  <div class="container">
+    <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+      <span class="section-label">Accommodation</span>
+      <h2>Find Your Perfect Room</h2>
+      <p style="color: var(--text-light); margin-top: 16px; font-size: 1.05rem;">From budget-friendly standard rooms to premium suites with Kilimanjaro views — every room at Buffalo Hotel is clean, comfortable, and prepared with care. All rates include complimentary WiFi and access to hotel facilities.</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 40px;">
+      <button class="btn btn-primary" onclick="filterRooms('all', this)">All Rooms</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('standard', this)">Standard</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('suite', this)">Suites</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('executive', this)">Executive</button>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS LISTING -->
+<section style="padding: 20px 0 100px;">
+  <div class="container">
+    <div class="rooms-grid" id="roomsGrid">
+
+      <!-- Room 1 -->
+      <div class="room-card" data-type="suite">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-1-768x555.jpg" alt="Kilimanjaro View Suite"/>
+          <div class="room-badge">Most Popular</div>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$130</strong> <span>/ night</span></div>
+          <h3>Kilimanjaro View Suite</h3>
+          <p>Wake up to breathtaking views of Africa's highest peak. This spacious suite features premium furnishings, a king-size bed, and a private en-suite bathroom with hot water.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ King Bed</span>
+            <span class="amenity-tag">🌋 Kilimanjaro View</span>
+            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">🛁 En-suite</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🏔️ Mountain View</div>
+        </div>
+      </div>
+
+      <!-- Room 2 -->
+      <div class="room-card" data-type="executive">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-2-768x555.jpg" alt="Buffalo Executive Room"/>
+          <div class="room-badge" style="background: var(--dark);">Executive</div>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$280</strong> <span>/ night</span></div>
+          <h3>Buffalo Executive Room</h3>
+          <p>Our most premium offering — a world-class room with luxurious bedding, spacious seating area, minibar, and exceptional attention to detail for the discerning traveller.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ King Bed</span>
+            <span class="amenity-tag">🍳 Breakfast Inc.</span>
+            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">🍹 Minibar</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">⭐ Premium</div>
+        </div>
+      </div>
+
+      <!-- Room 3 -->
+      <div class="room-card" data-type="standard">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-3-768x555.jpg" alt="Standard Comfort Room"/>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$150</strong> <span>/ night</span></div>
+          <h3>Standard Comfort Room</h3>
+          <p>A well-appointed room for travellers who value quality and simplicity. Features comfortable double bed, clean en-suite bathroom, and all essential amenities.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ Double Bed</span>
+            <span class="amenity-tag">🛁 En-suite</span>
+            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">📺 Smart TV</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">💰 Best Value</div>
+        </div>
+      </div>
+
+      <!-- Room 4 -->
+      <div class="room-card" data-type="standard">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-4-768x555.jpg" alt="Twin Room"/>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$110</strong> <span>/ night</span></div>
+          <h3>Twin Sharing Room</h3>
+          <p>Perfect for friends or colleagues travelling together. Two comfortable single beds, shared bathroom facilities, and a bright, welcoming atmosphere.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ 2 Single Beds</span>
+            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">🧼 Daily Housekeeping</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">👫 Great for 2</div>
+        </div>
+      </div>
+
+      <!-- Room 5 -->
+      <div class="room-card" data-type="suite">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-5-768x555.jpg" alt="Family Suite"/>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$195</strong> <span>/ night</span></div>
+          <h3>Family Safari Suite</h3>
+          <p>Spacious family accommodation with a king bed and two single beds. Perfect for families exploring Tanzania together, with room to spread out and relax.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ King + 2 Singles</span>
+            <span class="amenity-tag">🛁 En-suite</span>
+            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">🏡 Seating Area</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">👨‍👩‍👧 Family Friendly</div>
+        </div>
+      </div>
+
+      <!-- Room 6 -->
+      <div class="room-card" data-type="standard">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-6-768x555.jpg" alt="Budget Single Room"/>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price">From <strong>$70</strong> <span>/ night</span></div>
+          <h3>Budget Single Room</h3>
+          <p>Our most affordable option — compact, clean, and practical. Ideal for solo travellers or climbers who just need a great night's sleep before their adventure.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ Single Bed</span>
+            <span class="amenity-tag">🚿 Shared Bath</span>
+            <span class="amenity-tag">🧳 Luggage Storage</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🎒 Solo Travellers</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ROOM AMENITIES SUMMARY -->
+<section style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="section-label">Included in All Rooms</span>
+      <h2>Standard Amenities</h2>
+      <p>Every room at Buffalo Hotel comes with these essentials — no hidden extras.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+      <div style="text-align: center; padding: 32px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 2.4rem; margin-bottom: 12px;">🛜</div>
+        <h4>Free WiFi</h4>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">High-speed internet in all rooms & common areas</p>
+      </div>
+      <div style="text-align: center; padding: 32px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 2.4rem; margin-bottom: 12px;">🧼</div>
+        <h4>Daily Housekeeping</h4>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">Fresh towels, linen, and thorough daily cleaning</p>
+      </div>
+      <div style="text-align: center; padding: 32px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 2.4rem; margin-bottom: 12px;">🔐</div>
+        <h4>24/7 Security</h4>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">Secure premises with CCTV and on-site security team</p>
+      </div>
+      <div style="text-align: center; padding: 32px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 2.4rem; margin-bottom: 12px;">☕</div>
+        <h4>Tea &amp; Coffee</h4>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 6px;">Complimentary tea, coffee, and water in every room</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Can't Decide? Let Us Help</h2>
+    <p>Our friendly team will help you choose the perfect room for your stay and budget.</p>
+    <div class="cta-actions">
+      <a href="contact.html#booking" class="btn btn-white">Book Your Room</a>
+      <a href="contact.html" class="btn btn-outline">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="assets/images/hotel-reservation-logo.svg" alt="Buffalo Hotel"/>
+          <div class="logo-text">
+            <span class="hotel-name">Buffalo Hotel</span>
+            <span class="hotel-sub" style="color: var(--primary);">Moshi · Kilimanjaro</span>
+          </div>
+        </div>
+        <p>Your gateway to Kilimanjaro and authentic Tanzanian hospitality. Comfortable, affordable, and right in the heart of Moshi town.</p>
+        <div class="social-links">
+          <a class="social-link" href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a class="social-link" href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a class="social-link" href="https://wa.me/255000000000" aria-label="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Home</a></li>
+          <li><a href="rooms.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Rooms & Suites</a></li>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Services</a></li>
+          <li><a href="about.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> About Us</a></li>
+          <li><a href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Room Booking</a></li>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Safari Tours</a></li>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Conference Rooms</a></li>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Restaurant</a></li>
+          <li><a href="services.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Airport Transfers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact-list">
+          <div class="footer-contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Moshi Town, Kilimanjaro, Tanzania</span></div>
+          <div class="footer-contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 5.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.13 1 .37 1.96.73 2.88a2 2 0 01-.45 2.1L9 10.91a16 16 0 006.09 6.09l1.21-1.28a2 2 0 012.1-.45 12.84 12.84 0 002.88.73A2 2 0 0122 16.92z"/></svg><a href="tel:+255000000000">+255 XXX XXX XXX</a></div>
+          <div class="footer-contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@buffalohotel.co.tz">info@buffalohotel.co.tz</a></div>
+          <div class="footer-contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Open 24 Hours / 7 Days</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Buffalo Hotel, Moshi — Kilimanjaro, Tanzania. All rights reserved.</span>
+      <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="Scroll to top">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="assets/js/main.js"></script>
+<script>
+function filterRooms(type, btn) {
+  document.querySelectorAll('#roomsGrid .room-card').forEach(card => {
+    if (type === 'all' || card.dataset.type === type) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  document.querySelectorAll('[onclick^="filterRooms"]').forEach(b => {
+    b.style.background = 'var(--off-white)';
+    b.style.color = 'var(--dark)';
+  });
+  btn.style.background = 'var(--primary)';
+  btn.style.color = 'var(--white)';
+}
+</script>
+</body>
+</html>
