@@ -95,8 +95,9 @@
     <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 40px;">
       <button class="btn btn-primary" onclick="filterRooms('all', this)">All Rooms</button>
       <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('standard', this)">Standard</button>
-      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('suite', this)">Suites</button>
-      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('executive', this)">Executive</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('twin', this)">Twin</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('deluxe', this)">Deluxe</button>
+      <button class="btn" style="background: var(--off-white); color: var(--dark);" onclick="filterRooms('triple', this)">Triple</button>
     </div>
   </div>
 </section>
@@ -106,141 +107,103 @@
   <div class="container">
     <div class="rooms-grid" id="roomsGrid">
 
-      <!-- Room 1 -->
-      <div class="room-card" data-type="suite">
-        <div class="room-card-img">
-          <img src="assets/images/accommodation-post-1-768x555.jpg" alt="Kilimanjaro View Suite"/>
-          <div class="room-badge">Most Popular</div>
-        </div>
-        <div class="room-card-body">
-          <div class="room-price">From <strong>$130</strong> <span>/ night</span></div>
-          <h3>Kilimanjaro View Suite</h3>
-          <p>Wake up to breathtaking views of Africa's highest peak. This spacious suite features premium furnishings, a king-size bed, and a private en-suite bathroom with hot water.</p>
-          <div class="room-amenities">
-            <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ King Bed</span>
-            <span class="amenity-tag">🌋 Kilimanjaro View</span>
-            <span class="amenity-tag">❄️ AC</span>
-            <span class="amenity-tag">🛁 En-suite</span>
-          </div>
-        </div>
-        <div class="room-card-footer">
-          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">🏔️ Mountain View</div>
-        </div>
-      </div>
-
-      <!-- Room 2 -->
-      <div class="room-card" data-type="executive">
-        <div class="room-card-img">
-          <img src="assets/images/accommodation-post-2-768x555.jpg" alt="Buffalo Executive Room"/>
-          <div class="room-badge" style="background: var(--dark);">Executive</div>
-        </div>
-        <div class="room-card-body">
-          <div class="room-price">From <strong>$280</strong> <span>/ night</span></div>
-          <h3>Buffalo Executive Room</h3>
-          <p>Our most premium offering — a world-class room with luxurious bedding, spacious seating area, minibar, and exceptional attention to detail for the discerning traveller.</p>
-          <div class="room-amenities">
-            <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ King Bed</span>
-            <span class="amenity-tag">🍳 Breakfast Inc.</span>
-            <span class="amenity-tag">❄️ AC</span>
-            <span class="amenity-tag">🍹 Minibar</span>
-          </div>
-        </div>
-        <div class="room-card-footer">
-          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">⭐ Premium</div>
-        </div>
-      </div>
-
-      <!-- Room 3 -->
+      <!-- Card 1: Standard Room -->
       <div class="room-card" data-type="standard">
         <div class="room-card-img">
-          <img src="assets/images/accommodation-post-3-768x555.jpg" alt="Standard Comfort Room"/>
+          <img src="assets/images/accommodation-post-1-768x555.jpg" alt="Standard Room"/>
+          <div class="room-badge">Most Available</div>
         </div>
         <div class="room-card-body">
-          <div class="room-price">From <strong>$150</strong> <span>/ night</span></div>
-          <h3>Standard Comfort Room</h3>
-          <p>A well-appointed room for travellers who value quality and simplicity. Features comfortable double bed, clean en-suite bathroom, and all essential amenities.</p>
+          <div class="room-price"><strong>$30</strong> <span>/ night (Non-Resident)</span></div>
+          <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Resident: <strong>TZS 60,000</strong> / night</div>
+          <h3>Standard Room</h3>
+          <p>A cozy, well-appointed room featuring a comfortable double bed, clean en-suite bathroom, high-speed WiFi, and air conditioning. Ideal for couples or business travellers.</p>
           <div class="room-amenities">
             <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ Double Bed</span>
+            <span class="amenity-tag">🛏️ 1 Bed</span>
             <span class="amenity-tag">🛁 En-suite</span>
             <span class="amenity-tag">❄️ AC</span>
-            <span class="amenity-tag">📺 Smart TV</span>
+            <span class="amenity-tag">🚪 20 Available</span>
           </div>
         </div>
         <div class="room-card-footer">
           <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">💰 Best Value</div>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🛌 Beds: 1</div>
         </div>
       </div>
 
-      <!-- Room 4 -->
-      <div class="room-card" data-type="standard">
+      <!-- Card 2: Twin Room -->
+      <div class="room-card" data-type="twin">
         <div class="room-card-img">
-          <img src="assets/images/accommodation-post-4-768x555.jpg" alt="Twin Room"/>
+          <img src="assets/images/accommodation-post-2-768x555.jpg" alt="Twin Room"/>
+          <div class="room-badge" style="background: var(--dark);">Great for 2</div>
         </div>
         <div class="room-card-body">
-          <div class="room-price">From <strong>$110</strong> <span>/ night</span></div>
-          <h3>Twin Sharing Room</h3>
-          <p>Perfect for friends or colleagues travelling together. Two comfortable single beds, shared bathroom facilities, and a bright, welcoming atmosphere.</p>
+          <div class="room-price"><strong>$40</strong> <span>/ night (Non-Resident)</span></div>
+          <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Resident: <strong>TZS 80,000</strong> / night</div>
+          <h3>Twin Room</h3>
+          <p>Perfect for friends or colleagues travelling together. Offers two comfortable single beds, en-suite bathroom, writing desk, and high-speed internet access.</p>
           <div class="room-amenities">
             <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ 2 Single Beds</span>
+            <span class="amenity-tag">🛏️ 2 Beds</span>
+            <span class="amenity-tag">🛁 En-suite</span>
             <span class="amenity-tag">❄️ AC</span>
-            <span class="amenity-tag">🧼 Daily Housekeeping</span>
+            <span class="amenity-tag">👥 7 Available</span>
           </div>
         </div>
         <div class="room-card-footer">
           <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">👫 Great for 2</div>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🛌 Beds: 2</div>
         </div>
       </div>
 
-      <!-- Room 5 -->
-      <div class="room-card" data-type="suite">
+      <!-- Card 3: Deluxe Room -->
+      <div class="room-card" data-type="deluxe">
         <div class="room-card-img">
-          <img src="assets/images/accommodation-post-5-768x555.jpg" alt="Family Suite"/>
+          <img src="assets/images/accommodation-post-3-768x555.jpg" alt="Deluxe Room"/>
+          <div class="room-badge">Premium</div>
         </div>
         <div class="room-card-body">
-          <div class="room-price">From <strong>$195</strong> <span>/ night</span></div>
-          <h3>Family Safari Suite</h3>
-          <p>Spacious family accommodation with a king bed and two single beds. Perfect for families exploring Tanzania together, with room to spread out and relax.</p>
+          <div class="room-price"><strong>$80</strong> <span>/ night (Non-Resident)</span></div>
+          <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Resident: <strong>TZS 120,000</strong> / night</div>
+          <h3>Deluxe Room</h3>
+          <p>Spacious and elegantly designed with premium furnishings. Enjoy extra comfort, private balcony, coffee maker, and our standard luxury amenities.</p>
           <div class="room-amenities">
             <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ King + 2 Singles</span>
+            <span class="amenity-tag">🛏️ 1 Bed</span>
             <span class="amenity-tag">🛁 En-suite</span>
-            <span class="amenity-tag">❄️ AC</span>
+            <span class="amenity-tag">🌅 Balcony</span>
+            <span class="amenity-tag">⭐ 2 Available</span>
+          </div>
+        </div>
+        <div class="room-card-footer">
+          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🛌 Beds: 1</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Triple Room -->
+      <div class="room-card" data-type="triple">
+        <div class="room-card-img">
+          <img src="assets/images/accommodation-post-4-768x555.jpg" alt="Triple Room"/>
+          <div class="room-badge">Family</div>
+        </div>
+        <div class="room-card-body">
+          <div class="room-price"><strong>$70</strong> <span>/ night (Non-Resident)</span></div>
+          <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Resident: <strong>TZS 90,000</strong> / night</div>
+          <h3>Triple Room</h3>
+          <p>Excellent choice for families or small groups. Features three single beds, cozy seating area, and plenty of space for a relaxed and pleasant stay.</p>
+          <div class="room-amenities">
+            <span class="amenity-tag">🛜 Free WiFi</span>
+            <span class="amenity-tag">🛏️ 3 Beds</span>
+            <span class="amenity-tag">🛁 En-suite</span>
             <span class="amenity-tag">🏡 Seating Area</span>
+            <span class="amenity-tag">👨‍👩‍👧 2 Available</span>
           </div>
         </div>
         <div class="room-card-footer">
           <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">👨‍👩‍👧 Family Friendly</div>
-        </div>
-      </div>
-
-      <!-- Room 6 -->
-      <div class="room-card" data-type="standard">
-        <div class="room-card-img">
-          <img src="assets/images/accommodation-post-6-768x555.jpg" alt="Budget Single Room"/>
-        </div>
-        <div class="room-card-body">
-          <div class="room-price">From <strong>$70</strong> <span>/ night</span></div>
-          <h3>Budget Single Room</h3>
-          <p>Our most affordable option — compact, clean, and practical. Ideal for solo travellers or climbers who just need a great night's sleep before their adventure.</p>
-          <div class="room-amenities">
-            <span class="amenity-tag">🛜 Free WiFi</span>
-            <span class="amenity-tag">🛏️ Single Bed</span>
-            <span class="amenity-tag">🚿 Shared Bath</span>
-            <span class="amenity-tag">🧳 Luggage Storage</span>
-          </div>
-        </div>
-        <div class="room-card-footer">
-          <a href="contact.html#booking" class="btn btn-primary">Book Now</a>
-          <div style="font-size: 0.8rem; color: var(--text-light);">🎒 Solo Travellers</div>
+          <div style="font-size: 0.8rem; color: var(--text-light);">🛌 Beds: 3</div>
         </div>
       </div>
 

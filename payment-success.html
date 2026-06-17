@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Confirmed – Buffalo Hotel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body style="display:flex; align-items:center; justify-content:center; min-height:100vh; background: var(--off-white);">
+  <div style="max-width: 520px; width: 100%; margin: 40px 16px; background: white;
+    border-radius: 12px; padding: 48px 40px; text-align: center; box-shadow: 0 12px 48px rgba(0,0,0,0.1);">
+    
+    <div style="font-size: 4rem; margin-bottom: 16px;">🎉</div>
+    <h1 style="font-size: 1.8rem; margin-bottom: 12px; color: var(--dark);">You're All Set!</h1>
+    <p style="color: var(--text-light); margin-bottom: 28px; line-height: 1.7;">
+      Your payment was successful and your room at Buffalo Hotel is confirmed. 
+      A confirmation email is on its way to you.
+    </p>
+
+    <div id="bookingDetails" style="background: var(--off-white); border-radius: 8px;
+      padding: 20px; text-align: left; margin-bottom: 28px; font-size: 0.875rem;">
+      <!-- Populated by JS below -->
+    </div>
+
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:8px;
+      padding: 14px 28px; background: var(--primary); color: white;
+      border-radius: 4px; font-weight: 700; text-decoration: none;">
+      ← Back to Home
+    </a>
+  </div>
+
+  <script>
+    // Get bookingId from URL query param
+    const params = new URLSearchParams(window.location.search);
+    const bookingId = params.get('bookingId') || 'N/A';
+    document.getElementById('bookingDetails').innerHTML = `
+      <div style="display:flex; justify-content:space-between; padding: 8px 0;">
+        <span style="color: var(--text-light);">Booking Reference</span>
+        <strong style="color: var(--primary);">${bookingId}</strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding: 8px 0;">
+        <span style="color: var(--text-light);">Hotel</span>
+        <strong>Buffalo Hotel, Moshi</strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding: 8px 0;">
+        <span style="color: var(--text-light);">Status</span>
+        <strong style="color: #16a34a;">✓ Confirmed</strong>
+      </div>
+    `;
+  </script>
+</body>
+</html>

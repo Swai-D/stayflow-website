@@ -79,26 +79,170 @@ if (checkIn && checkOut) {
   });
 }
 
+// ── CONFIG ──
+const API_BASE = 'http://localhost:5000'; // ← REPLACE WITH YOUR STAYFLOW API URL
+
 // ── CONTACT FORM SUBMIT ──
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const btn = contactForm.querySelector('button[type="submit"]');
-    const original = btn.textContent;
-    btn.textContent = 'Sending...';
+    const originalHTML = btn.innerHTML;
+
+    // Loading state
+    btn.innerHTML = `<svg class="spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg> Processing...`;
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = '✓ Message Sent!';
-      btn.style.background = '#22c55e';
-      contactForm.reset();
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3000);
-    }, 1200);
+
+    // Collect form data
+    const payload = {
+      firstName:          contactForm.querySelector('#firstName').value.trim(),
+      lastName:           contactForm.querySelector('#lastName').value.trim(),
+      email:              contactForm.querySelector('#email').value.trim(),
+      phone:              contactForm.querySelector('#phone').value.trim(),
+      checkIn:            contactForm.querySelector('#check-in').value,
+      checkOut:           contactForm.querySelector('#check-out').value,
+      guests:             contactForm.querySelector('#guests').value,
+      roomType:           contactForm.querySelector('#roomType').value,
+      additionalServices: contactForm.querySelector('#services').value,
+      message:            contactForm.querySelector('#message').value.trim(),
+      source:             'website'
+    };
+
+    // Basic validation
+    const required = ['firstName','lastName','email','phone','checkIn','checkOut','guests','roomType'];
+    const missing = required.filter(k => !payload[k]);
+    if (missing.length) {
+      showFormError(btn, originalHTML, 'Please fill in all required fields.');
+      return;
+    }
+
+    try {
+      // STEP 1: Create booking
+      const bookingRes = await fetch(`${API_BASE}/api/bookings/website`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const booking = await bookingRes.json();
+
+      if (!bookingRes.ok || !booking.success) {
+        const msg = (booking.error && booking.error.message) || booking.message || 'Booking failed. Please try again.';
+        throw new Error(msg);
+      }
+
+      // STEP 2: Initiate payment
+      const paymentRes = await fetch(`${API_BASE}/api/payments/initiate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookingId:       booking.bookingId,
+          amount:          booking.totalAmount,
+          currency:        booking.currency,
+          customerEmail:   payload.email,
+          customerPhone:   payload.phone,
+          description:     `Buffalo Hotel - ${booking.roomType} (${booking.nights} night${booking.nights > 1 ? 's' : ''})`
+        })
+      });
+
+      const payment = await paymentRes.json();
+
+      if (!paymentRes.ok || !payment.success) {
+        const msg = (payment.error && payment.error.message) || payment.message || 'Payment initiation failed. Please contact us directly.';
+        throw new Error(msg);
+      }
+
+      // STEP 3: Show summary then redirect to payment
+      showBookingSummary(booking, payment.paymentUrl);
+
+    } catch (err) {
+      showFormError(btn, originalHTML, err.message);
+    }
   });
+}
+
+// ── HELPERS ──
+
+function showFormError(btn, originalHTML, message) {
+  btn.innerHTML = originalHTML;
+  btn.disabled = false;
+
+  // Remove old error if any
+  const old = document.getElementById('formError');
+  if (old) old.remove();
+
+  const err = document.createElement('div');
+  err.id = 'formError';
+  err.style.cssText = `
+    margin-top: 12px; padding: 14px 18px;
+    background: #FEF2F2; border: 1.5px solid #FECACA;
+    border-radius: 8px; color: #DC2626;
+    font-size: 0.875rem; font-weight: 500;
+  `;
+  err.textContent = '⚠️ ' + message;
+  btn.parentNode.insertBefore(err, btn.nextSibling);
+
+  // Auto-remove after 6s
+  setTimeout(() => err.remove(), 6000);
+}
+
+function showBookingSummary(booking, paymentUrl) {
+  const form = document.getElementById('contactForm');
+
+  form.innerHTML = `
+    <div style="text-align: center; padding: 20px 0;">
+      <div style="width: 64px; height: 64px; background: rgba(200,151,58,0.12); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem;">
+        ✅
+      </div>
+      <h3 style="color: var(--dark); margin-bottom: 8px;">Booking Confirmed!</h3>
+      <p style="color: var(--text-light); margin-bottom: 24px;">
+        Your request has been received. Complete payment to secure your room.
+      </p>
+
+      <div style="background: var(--off-white); border-radius: 8px; padding: 20px;
+        text-align: left; margin-bottom: 24px; font-size: 0.875rem;">
+        <div style="display: flex; justify-content: space-between; padding: 8px 0;
+          border-bottom: 1px solid var(--border);">
+          <span style="color: var(--text-light);">Booking ID</span>
+          <strong style="color: var(--primary);">${booking.bookingId}</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0;
+          border-bottom: 1px solid var(--border);">
+          <span style="color: var(--text-light);">Room</span>
+          <strong>${booking.roomType}</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0;
+          border-bottom: 1px solid var(--border);">
+          <span style="color: var(--text-light);">Duration</span>
+          <strong>${booking.nights} night${booking.nights > 1 ? 's' : ''}</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+          <span style="color: var(--text-light);">Total Amount</span>
+          <strong style="font-size: 1.1rem; color: var(--primary);">
+            ${booking.currency} ${booking.totalAmount.toLocaleString()}
+          </strong>
+        </div>
+      </div>
+
+      <a href="${paymentUrl}" 
+        style="display: flex; align-items: center; justify-content: center; gap: 8px;
+          padding: 16px 32px; background: var(--primary); color: white;
+          border-radius: 4px; font-weight: 700; font-size: 0.95rem;
+          text-decoration: none; transition: all 0.3s;"
+        onmouseover="this.style.background='#A87C28'"
+        onmouseout="this.style.background='var(--primary)'">
+        💳 Proceed to Payment
+      </a>
+
+      <p style="margin-top: 16px; font-size: 0.8rem; color: var(--text-light);">
+        Booking ID: <strong>${booking.bookingId}</strong> — 
+        Save this for reference. We'll email you a confirmation after payment.
+      </p>
+    </div>
+  `;
 }
 
 // ── ANIMATE ON SCROLL ──
