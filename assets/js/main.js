@@ -80,7 +80,7 @@ if (checkIn && checkOut) {
 }
 
 // ── CONFIG ──
-const API_BASE = 'http://localhost:5000'; // ← REPLACE WITH YOUR STAYFLOW API URL
+const API_BASE = 'https://buffalo-hotel-managment-system.up.railway.app'; // ← REPLACE WITH YOUR STAYFLOW API URL
 
 // ── CONTACT FORM SUBMIT ──
 const contactForm = document.getElementById('contactForm');
@@ -227,7 +227,7 @@ function showBookingSummary(booking, paymentUrl) {
         </div>
       </div>
 
-      <a href="${paymentUrl}" 
+      <a href="${paymentUrl}"
         style="display: flex; align-items: center; justify-content: center; gap: 8px;
           padding: 16px 32px; background: var(--primary); color: white;
           border-radius: 4px; font-weight: 700; font-size: 0.95rem;
@@ -238,7 +238,7 @@ function showBookingSummary(booking, paymentUrl) {
       </a>
 
       <p style="margin-top: 16px; font-size: 0.8rem; color: var(--text-light);">
-        Booking ID: <strong>${booking.bookingId}</strong> — 
+        Booking ID: <strong>${booking.bookingId}</strong> —
         Save this for reference. We'll email you a confirmation after payment.
       </p>
     </div>
