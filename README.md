@@ -128,8 +128,12 @@ Single file, no libraries, no imports. Sections (in order):
 | `phone` | tel | ✅ | WhatsApp-friendly |
 | `check-in` | date | ✅ | Pre-filled via JS |
 | `check-out` | date | ✅ | Pre-filled via JS |
-| `guests` | select | ✅ | 1 Adult / 2 Adults / 2+1 / 2+2 / Group |
-| `roomType` | select | ✅ | 6 room types with price hints |
+| `adults` | select | ✅ | 1–4 adults |
+| `children` | select | ❌ | 0–3 children |
+| `nationality` | text | ❌ | e.g. Tanzanian |
+| `idType` | select | ❌ | `national_id` / `passport` / `drivers_license` / `voter_id` |
+| `idNumber` | text | ❌ | ID document number |
+| `roomType` | select | ✅ | Loaded dynamically from `/api/rooms/availability` |
 | `services` | select | ❌ | Airport transfer / Safari / Conference / etc |
 | `message` | textarea | ❌ | Special requests |
 
@@ -178,9 +182,13 @@ Request body:
   "lastName": "string",
   "email": "string",
   "phone": "string",
+  "nationality": "string",
+  "idType": "national_id",
+  "idNumber": "string",
   "checkIn": "YYYY-MM-DD",
   "checkOut": "YYYY-MM-DD",
-  "guests": "string",
+  "adults": 2,
+  "children": 0,
   "roomType": "string",
   "additionalServices": "string",
   "message": "string",
@@ -194,8 +202,8 @@ Expected response:
   "success": true,
   "bookingId": "BUF-2026-0042",
   "roomType": "Kilimanjaro View Suite",
-  "totalAmount": 260.00,
-  "currency": "USD",
+  "totalAmount": 260000,
+  "currency": "TZS",
   "nights": 2
 }
 ```
@@ -322,7 +330,7 @@ These are intentionally left as placeholders — client to provide:
 | Family Safari Suite | $195 | `accommodation-post-5-768x555.jpg` |
 | Budget Single Room | $70 | `accommodation-post-6-768x555.jpg` |
 
-Prices are hardcoded in HTML currently. After API integration, they can be pulled dynamically from `/api/rooms/availability`.
+Room type options and prices are loaded dynamically from `/api/rooms/availability` based on the selected check-in/check-out dates.
 
 ---
 
