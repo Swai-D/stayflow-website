@@ -174,26 +174,52 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="guests">Number of Guests *</label>
-              <select id="guests" required>
-                <option value="">Select guests</option>
+              <label for="adults">Adults *</label>
+              <select id="adults" required>
                 <option value="1">1 Adult</option>
-                <option value="2">2 Adults</option>
-                <option value="3">2 Adults + 1 Child</option>
-                <option value="4">2 Adults + 2 Children</option>
-                <option value="5">Group (5+)</option>
+                <option value="2" selected>2 Adults</option>
+                <option value="3">3 Adults</option>
+                <option value="4">4 Adults</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="roomType">Room Type *</label>
-              <select id="roomType" required>
-                <option value="">Select room type</option>
-                <option value="Standard">Standard Room — $30/night</option>
-                <option value="Twin">Twin Room — $40/night</option>
-                <option value="Deluxe">Deluxe Room — $80/night</option>
-                <option value="Triple">Triple Room — $70/night</option>
+              <label for="children">Children</label>
+              <select id="children">
+                <option value="0" selected>0 Children</option>
+                <option value="1">1 Child</option>
+                <option value="2">2 Children</option>
+                <option value="3">3 Children</option>
               </select>
             </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nationality">Nationality</label>
+              <input type="text" id="nationality" placeholder="e.g. Tanzanian"/>
+            </div>
+            <div class="form-group">
+              <label for="idType">ID Type</label>
+              <select id="idType">
+                <option value="">Select ID type</option>
+                <option value="national_id">National ID</option>
+                <option value="passport">Passport</option>
+                <option value="drivers_license">Driver's License</option>
+                <option value="voter_id">Voter ID</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="idNumber">ID Number</label>
+            <input type="text" id="idNumber" placeholder="Enter ID number"/>
+          </div>
+          <div class="form-group">
+            <label for="roomType">Room Type *</label>
+            <select id="roomType" required>
+              <option value="">Choose dates to see available rooms</option>
+            </select>
+            <small id="roomTypeHelp" style="display:block; margin-top:6px; font-size:0.75rem; color:var(--text-light);">
+              Prices are shown in TZS per night.
+            </small>
           </div>
           <div class="form-group">
             <label for="services">Additional Services</label>

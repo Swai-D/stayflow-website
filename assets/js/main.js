@@ -57,30 +57,120 @@ navLinks.forEach(link => {
   }
 });
 
-// ── BOOKING FORM DATE DEFAULTS ──
+// ── URL PARAMS HELPERS ──
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function setInputValue(id, value) {
+  const el = document.getElementById(id);
+  if (el && value) el.value = value;
+}
+
+// ── CONFIG ──
+const API_BASE = 'https://buffalo-hotel-managment-system.up.railway.app'; // ← REPLACE WITH YOUR STAYFLOW API URL
+
+// ── BOOKING FORM DATE DEFAULTS + AVAILABILITY ──
 const checkIn = document.getElementById('check-in');
 const checkOut = document.getElementById('check-out');
+const roomTypeSelect = document.getElementById('roomType');
+
+function formatDateInput(date) {
+  return date.toISOString().split('T')[0];
+}
+
 if (checkIn && checkOut) {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
   const dayAfter = new Date(today);
   dayAfter.setDate(today.getDate() + 2);
-  checkIn.value = today.toISOString().split('T')[0];
-  checkIn.min = today.toISOString().split('T')[0];
-  checkOut.value = dayAfter.toISOString().split('T')[0];
+
+  // Prefill from URL params if present (e.g. from homepage booking bar)
+  const paramCheckIn = getQueryParam('checkIn');
+  const paramCheckOut = getQueryParam('checkOut');
+
+  checkIn.value = paramCheckIn || formatDateInput(today);
+  checkIn.min = formatDateInput(today);
+  checkOut.value = paramCheckOut || formatDateInput(dayAfter);
+  checkOut.min = formatDateInput(tomorrow);
+
   checkIn.addEventListener('change', () => {
     const newMin = new Date(checkIn.value);
     newMin.setDate(newMin.getDate() + 1);
-    checkOut.min = newMin.toISOString().split('T')[0];
+    checkOut.min = formatDateInput(newMin);
     if (new Date(checkOut.value) <= new Date(checkIn.value)) {
-      checkOut.value = newMin.toISOString().split('T')[0];
+      checkOut.value = formatDateInput(newMin);
     }
+    loadRoomAvailability();
   });
+
+  checkOut.addEventListener('change', loadRoomAvailability);
+
+  // Initial load
+  loadRoomAvailability();
 }
 
-// ── CONFIG ──
-const API_BASE = 'https://buffalo-hotel-managment-system.up.railway.app'; // ← REPLACE WITH YOUR STAYFLOW API URL
+function formatTzs(amount) {
+  return 'TZS ' + Number(amount).toLocaleString('en-TZ');
+}
+
+function displayRoomLabel(room) {
+  // Capitalize first letter of the type
+  const label = room.type.charAt(0).toUpperCase() + room.type.slice(1);
+  return `${label} Room — ${formatTzs(room.price)}/night`;
+}
+
+async function loadRoomAvailability() {
+  if (!checkIn || !checkOut || !roomTypeSelect) return;
+  if (!checkIn.value || !checkOut.value) return;
+
+  const preselected = getQueryParam('roomType') || roomTypeSelect.value;
+
+  roomTypeSelect.innerHTML = '<option value="">Loading available rooms...</option>';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/rooms/availability?checkIn=${checkIn.value}&checkOut=${checkOut.value}`);
+    const data = await res.json();
+
+    if (!res.ok || !data.success || !data.rooms || data.rooms.length === 0) {
+      roomTypeSelect.innerHTML = '<option value="">No rooms available for selected dates</option>';
+      return;
+    }
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select room type';
+    roomTypeSelect.appendChild(defaultOption);
+
+    data.rooms.forEach(room => {
+      const option = document.createElement('option');
+      option.value = room.type;
+      option.textContent = displayRoomLabel(room);
+      if (!room.available) {
+        option.disabled = true;
+        option.textContent += ' (unavailable)';
+      }
+      roomTypeSelect.appendChild(option);
+    });
+
+    // Restore preselected type if still available
+    if (preselected) {
+      const match = Array.from(roomTypeSelect.options).find(o => o.value.toLowerCase() === preselected.toLowerCase() && !o.disabled);
+      if (match) roomTypeSelect.value = match.value;
+    }
+  } catch (err) {
+    console.error('Availability check failed:', err);
+    roomTypeSelect.innerHTML = `
+      <option value="">Select room type</option>
+      <option value="standard">Standard Room</option>
+      <option value="twin">Twin Room</option>
+      <option value="deluxe">Deluxe Room</option>
+      <option value="triple">Triple Room</option>
+    `;
+  }
+}
 
 // ── CONTACT FORM SUBMIT ──
 const contactForm = document.getElementById('contactForm');
@@ -101,9 +191,13 @@ if (contactForm) {
       lastName:           contactForm.querySelector('#lastName').value.trim(),
       email:              contactForm.querySelector('#email').value.trim(),
       phone:              contactForm.querySelector('#phone').value.trim(),
+      nationality:        contactForm.querySelector('#nationality').value.trim(),
+      idType:             contactForm.querySelector('#idType').value,
+      idNumber:           contactForm.querySelector('#idNumber').value.trim(),
       checkIn:            contactForm.querySelector('#check-in').value,
       checkOut:           contactForm.querySelector('#check-out').value,
-      guests:             contactForm.querySelector('#guests').value,
+      adults:             Number(contactForm.querySelector('#adults').value) || 1,
+      children:           Number(contactForm.querySelector('#children').value) || 0,
       roomType:           contactForm.querySelector('#roomType').value,
       additionalServices: contactForm.querySelector('#services').value,
       message:            contactForm.querySelector('#message').value.trim(),
@@ -111,7 +205,7 @@ if (contactForm) {
     };
 
     // Basic validation
-    const required = ['firstName','lastName','email','phone','checkIn','checkOut','guests','roomType'];
+    const required = ['firstName','lastName','email','phone','checkIn','checkOut','adults','roomType'];
     const missing = required.filter(k => !payload[k]);
     if (missing.length) {
       showFormError(btn, originalHTML, 'Please fill in all required fields.');
@@ -222,7 +316,7 @@ function showBookingSummary(booking, paymentUrl) {
         <div style="display: flex; justify-content: space-between; padding: 8px 0;">
           <span style="color: var(--text-light);">Total Amount</span>
           <strong style="font-size: 1.1rem; color: var(--primary);">
-            ${booking.currency} ${booking.totalAmount.toLocaleString()}
+            ${booking.currency} ${Number(booking.totalAmount).toLocaleString('en-TZ')}
           </strong>
         </div>
       </div>
