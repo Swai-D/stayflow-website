@@ -69,7 +69,7 @@ function setInputValue(id, value) {
 }
 
 // ── CONFIG ──
-const API_BASE = 'https://buffalo-hotel-managment-system.up.railway.app'; // ← REPLACE WITH YOUR STAYFLOW API URL
+const API_BASE = 'https://api-buffalo-hotel-managment-system.up.railway.app'; // StayFlow API
 
 // ── BOOKING FORM DATE DEFAULTS + AVAILABILITY ──
 const checkIn = document.getElementById('check-in');
